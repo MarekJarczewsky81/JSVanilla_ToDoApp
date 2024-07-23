@@ -9,12 +9,21 @@ class TodoList extends HTMLElement {
 
     wrapper.innerHTML = `
             <h1>${title}</h1>
+            <div id="description-container"></div>
             <ul class="task-list"></ul>
             <input class="new-task-input" type="text">
             <button class="add-task-button">${addTaskLabel}</button>
         `;
 
     shadowDom.appendChild(wrapper);
+
+    // Pobieram szablon i dodaje do komponentu
+    const template = document.getElementById("todo-list-template");
+    const descriptionContainer = wrapper.querySelector("#description-container");
+    if (template) {
+      const descriptionContent = template.content.cloneNode(true);
+      descriptionContainer.appendChild(descriptionContent);
+    }
 
     this.addTask = this.addTask.bind(this);
   }
