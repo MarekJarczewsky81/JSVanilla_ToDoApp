@@ -6,6 +6,8 @@ class TodoList extends HTMLElement {
     const wrapper = document.createElement("div");
     const title = this.getAttribute("title");
     const addTaskLabel = this.getAttribute("add-task-label");
+    const clearListLabel = this.getAttribute("clear-list-label");
+
 
     wrapper.innerHTML = `
             <h1>${title}</h1>
@@ -13,7 +15,8 @@ class TodoList extends HTMLElement {
             <ul class="task-list"></ul>
             <input class="new-task-input" type="text">
             <button class="add-task-button">${addTaskLabel}</button>
-        `;
+            <button class="clear-list-button">${clearListLabel}</button>
+            `;
 
     shadowDom.appendChild(wrapper);
 
@@ -26,12 +29,15 @@ class TodoList extends HTMLElement {
     }
 
     this.addTask = this.addTask.bind(this);
+    this.clearList = this.clearList.bind(this);
   }
 
   connectedCallback() {
     const addTaskButton = this.shadowRoot.querySelector(".add-task-button");
+    const clearListButton = this.shadowRoot.querySelector(".clear-list-button");
     this.taskList = this.shadowRoot.querySelector(".task-list");
     addTaskButton.addEventListener("click", this.addTask);
+    clearListButton.addEventListener("click", this.clearList);
   }
 
   addTask() {
@@ -41,6 +47,12 @@ class TodoList extends HTMLElement {
       li.textContent = textInput.value;
       this.taskList.appendChild(li);
       textInput.value = "";
+    }
+  }
+
+  clearList() {
+    while (this.taskList.firstChild) {
+      this.taskList.removeChild(this.taskList.firstChild);
     }
   }
 }
