@@ -1,0 +1,25 @@
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Katalogi środowiska programistycznego
+.vscode/
+.idea/
+
+# Katalogi zależności
+node_modules/
+vendor/
+
+# Pliki logów
+*.log
+
+# Pliki tymczasowe
+*.tmp
+*.temp
+
+# Pliki środowiska
+.env
+
+# Katalogi kompilacji/budowania
+build/
+dist/
